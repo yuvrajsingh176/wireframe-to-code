@@ -38,8 +38,8 @@ export async function POST(req: NextRequest) {
             uploadStream.end(buffer);
         })
         return NextResponse.json(result.public_id, { status: 200 })
-    } catch (e) {
-        console.log(e);
-        return NextResponse.json({ error: "upload image failed" + e }, { status: 500 })
+    } catch (e: any) {
+        console.error('Image upload failed:', e?.message || e); 
+        return NextResponse.json({ error: e?.message || "Upload image failed" }, { status: 500 });
     }
 }
