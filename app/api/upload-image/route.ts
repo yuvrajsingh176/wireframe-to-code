@@ -1,5 +1,5 @@
 export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs'; 
+export const runtime = 'nodejs';
 
 
 import { v2 as cloudinary } from 'cloudinary';
@@ -28,26 +28,21 @@ export async function POST(req: NextRequest) {
         const file = formdata.get('file') as File | null;
 
         if (!file) {
-            return NextResponse.json({ error: "file not found" }, { status: 400 })
+            return NextResponse.json({ error: "file not found" }, { status: 400 });
         }
 
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
 
-        const result = await new Promise<CloudinaryUploadResult>((res, rej) => {
-            const uploadStream = cloudinary.uploader.upload_stream({ folder: 'wireframe Images' },
-                (error, result) => {
-                    if (error) {
-                        rej(error)
-                    }
-                    else {
-                        res(result as CloudinaryUploadResult);
-                    }
-                }
-            )
-            uploadStream.end(buffer);
-        })
-        return NextResponse.json(result.public_id, { status: 200 })
+        // Convert to base64 string
+        const base64Image = `data:${file.type};base64,${buffer.toString('base64')}`;
+
+        const result = await cloudinary.uploader.upload(base64Image, {
+            folder: 'wireframe Images',
+        });
+
+        return NextResponse.json({ public_id: result.public_id }, { status: 200 });
+
     } catch (e) {
         console.error('Image upload failed:', e);
         return NextResponse.json({ error: e instanceof Error ? e.message : 'Unknown error' }, { status: 500 });
