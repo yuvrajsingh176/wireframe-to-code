@@ -18,7 +18,7 @@ function Provider({
     const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
     const path = usePathname();
-    const [model, setModel] = useState();
+    const [model, setModel] = useState<string>('');
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
