@@ -7,6 +7,10 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+console.log(
+    process.env.CLOUDINARY_CLOUD_NAME, process.env.CLOUDINARY_API_KEY, process.env.CLOUDINARY_API_SECRET
+)
+
 interface CloudinaryUploadResult {
     public_id: string;
     [key: string]: any;
@@ -38,8 +42,8 @@ export async function POST(req: NextRequest) {
             uploadStream.end(buffer);
         })
         return NextResponse.json(result.public_id, { status: 200 })
-    } catch (e: any) {
-        console.error('Image upload failed:', e?.message || e); 
-        return NextResponse.json({ error: e?.message || "Upload image failed" }, { status: 500 });
+    } catch (e) {
+        console.error('Image upload failed:', e);
+        return NextResponse.json({ error: e instanceof Error ? e.message : 'Unknown error' }, { status: 500 });
     }
 }
