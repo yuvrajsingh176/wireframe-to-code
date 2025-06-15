@@ -1,5 +1,11 @@
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs'; 
+
+
 import { v2 as cloudinary } from 'cloudinary';
 import { NextRequest, NextResponse } from 'next/server';
+
+
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
