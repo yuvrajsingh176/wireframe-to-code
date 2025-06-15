@@ -17,7 +17,7 @@ import constant from "@/constants/constant"
 import { Dispatch, SetStateAction, useContext, useEffect } from "react"
 import { Appcontext } from "@/context/Appcontext";
 
-const SelectionDetails = ({ record, RegenrateCode, isReady, loading, }: { record: RECORD, RegenrateCode: () => Promise<void>, isReady: boolean, loading: boolean, }) => {
+const SelectionDetails = ({ record, RegenrateCode, isReady, loading, }: { record: RECORD,  RegenrateCode: (regenerate?: boolean) => Promise<void>, isReady: boolean, loading: boolean, }) => {
 
     const { model, setModel } = useContext(Appcontext);
 
