@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
     try {
         const formdata = await req.formData();
         const file = formdata.get('file') as File | null;
+
         if (!file) {
             return NextResponse.json({ error: "file not found" }, { status: 400 })
         }
@@ -39,7 +40,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(result.public_id, { status: 200 })
     } catch (e) {
         console.log(e);
-
-        return NextResponse.json({ error: "upload image failed" }, { status: 500 })
+        return NextResponse.json({ error: "upload image failed" + e }, { status: 500 })
     }
 }

@@ -31,6 +31,7 @@ const ImageUpload = () => {
 
     const [description, setDescription] = useState('');
     const router = useRouter();
+
     const onImageSelect = (e: ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (files) {
@@ -41,6 +42,7 @@ const ImageUpload = () => {
     };
 
     const UploadImage = async () => {
+
         if (!file || file.length === 0 || !model || !description) {
             console.log('select all fields');
             return;
@@ -60,12 +62,14 @@ const ImageUpload = () => {
             const uid = uuid4();
             const dbresult = await axios.post('/api/wireframe-to-code', {
                 description: description, imageUrl, model, uid, email: user?.email
-            })
+            });
+
             setLoading(false);
             router.push('/view-code/' + uid);
         } catch (err) {
             setLoading(false)
             console.error("Upload error:", err);
+            
         }
     };
 
