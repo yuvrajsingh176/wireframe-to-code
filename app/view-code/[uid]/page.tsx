@@ -29,8 +29,7 @@ const ViewCode = () => {
     // const [regenerate, setRegenerate] = useState(false);
 
     const { model } = useContext(Appcontext);
-    console.log(model);
-    
+
     const GetRecordInfo = async (regenerate = false) => {
         setLoading(true);
         setIsReady(false);  // Reset isReady before fetching

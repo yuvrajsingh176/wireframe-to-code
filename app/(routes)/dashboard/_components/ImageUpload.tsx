@@ -56,8 +56,7 @@ const ImageUpload = () => {
             const res = await axios.post("/api/upload-image", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
-            const imageUrl = `${cloudinaryUrl}${encodeURIComponent(res.data)}`;
-
+            const imageUrl = `${cloudinaryUrl}${encodeURIComponent(res?.data?.public_id)}`;
             //save info to db
             const uid = uuid4();
             const dbresult = await axios.post('/api/wireframe-to-code', {
@@ -69,7 +68,7 @@ const ImageUpload = () => {
         } catch (err) {
             setLoading(false)
             console.error("Upload error:", err);
-            
+
         }
     };
 

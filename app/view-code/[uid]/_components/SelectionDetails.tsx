@@ -22,7 +22,6 @@ const SelectionDetails = ({ record, RegenrateCode, isReady, loading, }: { record
     const { model, setModel } = useContext(Appcontext);
 
 
-
     return record && (
         <div className="p-5 bg-gray-100 h-[80vh] rounded-lg" >
             <h2 className="font-bold my-2 text-xl">Wireframe</h2>
