@@ -1,8 +1,8 @@
 'use client'
 import constant from '@/constants/constant';
 import axios from 'axios';
-import { LoaderCircle } from 'lucide-react';
-import { useParams } from 'next/navigation';
+import { ArrowLeft, LoaderCircle } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useContext, useEffect, useState } from 'react';
 import SelectionDetails from './_components/SelectionDetails';
 import Codeeditor from './_components/Codeeditor';
@@ -27,7 +27,7 @@ const ViewCode = () => {
     const [record, setRecord] = useState<RECORD | null>(null);
     const [isReady, setIsReady] = useState(false);
     // const [regenerate, setRegenerate] = useState(false);
-
+    const router = useRouter();
     const { model } = useContext(Appcontext);
 
     const GetRecordInfo = async (regenerate = false) => {
@@ -116,23 +116,31 @@ const ViewCode = () => {
 
     return (
         <div>
-            <div className='flex w-full justify-end'>
+            <div className='flex w-full justify-between items-center'>
+                <div className='px-5'>
+                    <ArrowLeft className='cursor-pointer' onClick={() => router.back()} />
+
+                </div>
                 <AppHeader hideSidebar={true} />
 
             </div>
 
             {
-                !isReady ? (<div className='mx-10  h-[90vh] my-2'>
-                    <h2 className="font-bold text-2xl text-center p-20 flex items-center justify-center h-full bg-slate-100 rounded-xl border">
-                        <LoaderCircle className="animate-spin" />
-                        Analyzing the wireframe
-                    </h2>
-                </div>) : (<div className="grid grid-cols-1 gap-10 md:grid-cols-5 p-5">
-                    <div className="col-span-1">
+                !isReady ? (<div className='md:mx-10 mx-2  h-[90vh] my-2'>
+                    <div className="font-bold text-2xl text-center p-20 flex items-center justify-center h-full bg-slate-100 rounded-xl border">
+                        <div>
+                            <LoaderCircle className="animate-spin" />
+                        </div>
+                        <p>
+                            Analyzing the wireframe
+                        </p>
+                    </div>
+                </div>) : (<div className="flex flex-col justify-between md:flex-row gap-10   p-5">
+                    <div className="col-span-1 md:w-1/6">
                         {/* selection details */}
                         <SelectionDetails isReady={isReady} record={record as RECORD} RegenrateCode={GetRecordInfo} loading={loading} />
                     </div>
-                    <div className="col-span-4">
+                    <div className="col-span-4 md:w-5/6">
                         <Codeeditor codeResp={codeResp} isReady={isReady} />
                         {/* Code editor */}
                     </div>

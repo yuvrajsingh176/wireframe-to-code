@@ -9,7 +9,7 @@ const DesignCard = ({ item }: { item: RECORD }) => {
     const modelObj = constant.AiModelList.find((listitem) => listitem.name === item.model);
     return (
         <div className="p-5 border rounded-lg">
-            <Image src={item?.imageUrl} alt="design card image" height={300} width={200} className="h-[200px] w-full object-cover rounded-lg bg-white" />
+            <Image src={item?.imageUrl} alt="design card image" height={300} width={200} className="h-[200px] w-[300px] object-cover rounded-lg bg-white" />
             <div className="">
                 <h2 className="line-clamp-3 mt-4 mb-2 text-gray-400 text-sm ">{item?.description}</h2>
                 <div className="flex justify-between items-center text-center ">

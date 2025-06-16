@@ -42,7 +42,7 @@ const page = () => {
             ) : wireframeList?.length === 0 ? (
                 <div className="text-center text-xl text-gray-500 mt-6">No Wireframes generated yet.</div>
             ) : (
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-7 mt-4">
+                <div className="flex flex-col md:flex-row gap-4 mt-4">
                     {wireframeList.map((list: RECORD) => (
                         <DesignCard key={list.id} item={list} />
                     ))}

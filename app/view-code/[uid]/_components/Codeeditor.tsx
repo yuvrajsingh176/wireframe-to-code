@@ -30,6 +30,7 @@ const Codeeditor = ({ codeResp, isReady }: { codeResp: string; isReady: boolean 
                     files={{
                         '/App.js': `${codeResp}`,
                     }}
+                    
                 />
             ) : (
                 <SandpackProvider

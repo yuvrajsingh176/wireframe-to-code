@@ -22,18 +22,14 @@ export default function Home() {
   const user = useAuthContext();
 
   return (
-    <div>
-      <header className="flex  flex-wrap sm:justify-start  sm:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 sm:py-0 dark:bg-neutral-800 dark:border-neutral-700">
-        <nav className="relative  p-1 max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8" aria-label="Global">
-          <div className="flex items-center justify-between">
-            {/* <a className="flex-none text-xl font-semibold dark:text-white" href="#" aria-label="Brand">Brand</a> */}
-            <div>
-              {/* <button type="button" className="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:border-neutral-700 dark:hover:bg-neutral-700" data-hs-collapse="#navbar-collapse-with-animation" aria-controls="navbar-collapse-with-animation" aria-label="Toggle navigation"> */}
+    <div className="w-full">
+      <header className="flex   flex-wrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 sm:py-0 dark:bg-neutral-800 dark:border-neutral-700">
+        <nav className="  p-1   px-4 flex justify-between w-full items-center  " aria-label="Global">
+          <div className="flex items-center justify-between ">
               <Image src={'/logo.png'} alt='logo' width={100} height={50}
                 className='height-[60px] w-[80px] object-contain' />              {/* </button> */}
-            </div>
           </div>
-          <div id="navbar-collapse-with-animation" className="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
+          <div  className=" ">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-end sm:ps-7">
 
               {!user?.user?.email ? <Authentication>
@@ -86,7 +82,7 @@ export default function Home() {
         {/* Features Section */}
         <section className="container mx-auto mt-20 px-6 ">
           <h2 className="text-3xl font-semibold text-gray-800 text-center mb-12">Features</h2>
-          <div className="flex justify-between items-center gap-8">
+          <div className=" flex flex-col md:flex-row justify-between items-center gap-8 ">
             <Feature
               title="AI-Powered Conversion"
               description="Automatically convert wireframes to clean, efficient code."

@@ -37,7 +37,7 @@ function Provider({
     return (
         <AuthContext.Provider value={{ user }}>
             <Appcontext.Provider value={{ model, setModel }}>
-                <div>
+                <div className='w-full'>
                     {children}
                 </div>
             </Appcontext.Provider>

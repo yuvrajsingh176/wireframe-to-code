@@ -73,65 +73,95 @@ const ImageUpload = () => {
     };
 
     return (
-        <div className="mt-10">
-            <div className="flex gap-10 w-full">
-                <div className="p-7 border border-dashed rounded-md shadow-md flex flex-col justify-center items-center w-1/2">
-                    {fileurl.length === 0 ? (<div className="flex flex-col justify-center items-center">
-                        <CloudUploadIcon className="size-10" />
-                        <h2 className="font-bold text-lg">Upload Image</h2>
-                        <p className="text-gray-300 mt-3 mb-4">Select Wireframe Image</p>
-                        <div className="p-5 border  border-dashed w-full flex items-center justify-center">
-                            <label htmlFor="fileUpload">
-                                <h2 className="px-4 py-3 border bg-primary rounded-md text-white">Select Image</h2>
-                            </label>
-                        </div>
-                        <input onChange={onImageSelect} type="file" id="fileUpload" className="hidden" />
-                    </div>) :
-                        (<div className="mt-4">
-                            <Image src={fileurl} alt="Uploaded image" height={300} width={300} className="border-2 rounded-md " />
-                            <div className="flex w-full justify-center items-center mt-4 text-red-800">
-                                <X onClick={() => {
-                                    setFile(null);
-                                    setFileUrl('');
-                                }} className={`${loading && 'hidden'} size-10 cursor-pointer  `} />
+        <div className="mt-10 px-4 md:px-10 max-w-screen-xl mx-auto">
+            {/* Two-column responsive layout */}
+            <div className="flex flex-col md:flex-row items-start md:items-stretch justify-center gap-8 w-full">
+
+                {/* Upload Box */}
+                <div className="p-6 border border-dashed rounded-lg shadow-md flex flex-col justify-center items-center w-full md:w-1/2 bg-white">
+                    {fileurl.length === 0 ? (
+                        <div className="flex flex-col justify-around items-center w-full h-full">
+                            <div className="flex flex-col justify-center items-center h-1/2 md:h-full">
+                                <CloudUploadIcon className="w-10 h-10 text-gray-500" />
+                                <h2 className="font-bold text-lg mt-2">Upload Image</h2>
+                                <p className="text-gray-400 mt-1 mb-4 text-center text-sm">Select a wireframe image to convert</p>
                             </div>
-                        </div>)}
+
+                            <div className="p-4 border border-dashed w-full flex items-center h-1/2 md:h-full justify-center rounded-md bg-gray-50">
+                                <label htmlFor="fileUpload" className="cursor-pointer">
+                                    <span className="px-4 py-2 bg-primary text-white rounded-md text-sm">Select Image</span>
+                                </label>
+                                <input onChange={onImageSelect} type="file" id="fileUpload" className="hidden" />
+
+                            </div>
+
+                        </div>
+                    ) : (
+                        <div className="mt-4 w-full">
+                            <Image
+                                src={fileurl}
+                                alt="Uploaded image"
+                                height={300}
+                                width={300}
+                                className="border-2 rounded-md object-contain mx-auto"
+                            />
+                            <div className="flex justify-center mt-4 text-red-600">
+                                <X
+                                    onClick={() => {
+                                        setFile(null);
+                                        setFileUrl('');
+                                    }}
+                                    className={`${loading ? 'hidden' : ''} w-8 h-8 cursor-pointer`}
+                                />
+                            </div>
+                        </div>
+                    )}
                 </div>
-                <div className="p-7 border  rounded-md shadow-md flex flex-col justify-center items-start w-1/2">
-                    <h2 className="font-bold text-lg text-start mb-3">Select AI Model</h2>
-                    <Select onValueChange={(value) => {
-                        setModel(value)
-                    }}>
+
+                {/* Model Selection and Description */}
+                <div className="p-6 border rounded-lg shadow-md flex flex-col justify-start w-full md:w-1/2 bg-white">
+                    <h2 className="font-bold text-lg mb-3">Select AI Model</h2>
+
+                    <Select onValueChange={(value) => setModel(value)}>
                         <SelectTrigger className="w-full h-10">
                             <SelectValue placeholder="Select AI Model" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>Models</SelectLabel>
-                                {
-                                    constant.AiModelList.map((model) => (
-                                        <SelectItem key={model.name} value={model.name} >
-                                            <div className="flex gap-2 items-center text-start">
-                                                <Image src={model.icon} height={25} width={25} alt="icon" />
-                                                <p>
-                                                    {model.name}
-                                                </p>
-                                            </div>
-                                        </SelectItem>
-                                    ))
-                                }
+                                {constant.AiModelList.map((model) => (
+                                    <SelectItem key={model.name} value={model.name}>
+                                        <div className="flex gap-2 items-center text-sm">
+                                            <Image src={model.icon} height={25} width={25} alt="icon" />
+                                            <span>{model.name}</span>
+                                        </div>
+                                    </SelectItem>
+                                ))}
                             </SelectGroup>
                         </SelectContent>
                     </Select>
-                    <h1 className="font-bold text-lg mt-7">Enter Description about your web page</h1>
-                    <Textarea onChange={(e) => setDescription(e.target.value)} className="mt-3 h-[200px]" placeholder="Write about your webpage🚀" />
-                </div>
 
+                    <h2 className="font-bold text-lg mt-6">Webpage Description</h2>
+                    <Textarea
+                        onChange={(e) => setDescription(e.target.value)}
+                        className="mt-2 h-[180px] text-sm"
+                        placeholder="Write about your webpage 🚀"
+                    />
+                </div>
             </div>
-            <div className="my-4 flex justify-center items-center ">
-                <Button disabled={loading} onClick={UploadImage} className="w-1/2 text-lg h-[50px]"> {loading ? <Loader2Icon className="animate-spin" /> : 'Convert to Code🧑‍💻✨'} </Button>
+
+            {/* Submit Button */}
+            <div className="my-8 flex justify-center">
+                <Button
+                    disabled={loading}
+                    onClick={UploadImage}
+                    className="w-full md:w-1/2 text-lg h-[50px]"
+                >
+                    {loading ? <Loader2Icon className="animate-spin" /> : 'Convert to Code 🧑‍💻✨'}
+                </Button>
             </div>
         </div>
+
     )
 }
 
